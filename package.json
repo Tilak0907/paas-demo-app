@@ -1,12 +1,13 @@
 {
   "name": "paas-demo-app",
   "version": "1.0.0",
-  "description": "",
+  "type": "module",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
+  "scripts": { "start": "node index.js" },
+  "dependencies": { "express": "^4.19.2" },
+  "engines": { "node": ">=18" }
+},
+
   "keywords": [],
   "author": "",
   "license": "ISC",
