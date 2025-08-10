@@ -1,17 +1,16 @@
 {
   "name": "paas-demo-app",
   "version": "1.0.0",
+  "description": "Minimal Node/Express app for PaaS demo",
   "type": "module",
   "main": "index.js",
-  "scripts": { "start": "node index.js" },
-  "dependencies": { "express": "^4.19.2" },
-  "engines": { "node": ">=18" }
-},
-
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
