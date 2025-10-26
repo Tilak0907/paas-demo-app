@@ -3,183 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #4facfe, #00f2fe);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .quiz-container {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 400px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-    .question {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-    .options {
-      list-style: none;
-      padding: 0;
-    }
-    .options li {
-      background: #f4f4f4;
-      margin: 8px 0;
-      padding: 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .options li:hover {
-      background: #d3eafd;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: none;
-      background: #4facfe;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background: #00c6fb;
-    }
-    .result {
-      font-size: 20px;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-  </style>
+  <title>CampusBot – College Query Assistant</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>Quiz App</h1>
-    <div id="quiz">
-      <p class="question" id="question">Question text</p>
-      <ul class="options" id="options"></ul>
-      <button id="nextBtn">Next</button>
+  <div class="chat-container">
+    <div class="chat-box" id="chatBox">
+      <div class="bot-message">👋 Hello! I’m CampusBot. Ask me anything about our college!</div>
     </div>
-    <p class="result" id="result"></p>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type your question..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
   </div>
 
-  <script>
-   const quizData = [
-  {
-    question: "What does PaaS stand for?",
-    options: [
-      "Platform as a Service",
-      "Product as a Software",
-      "Process as a System",
-      "Platform and Storage"
-    ],
-    answer: "Platform as a Service"
-  },
-  {
-    question: "Which of the following is NOT a PaaS provider?",
-    options: [
-      "Heroku",
-      "Google App Engine",
-      "Amazon EC2",
-      "Microsoft Azure App Service"
-    ],
-    answer: "Amazon EC2"
-  },
-  {
-    question: "What is the main advantage of PaaS?",
-    options: [
-      "Complete control of physical servers",
-      "No need to manage infrastructure",
-      "User owns all hardware",
-      "Offline development only"
-    ],
-    answer: "No need to manage infrastructure"
-  },
-  {
-    question: "Which of the following belongs to IaaS rather than PaaS?",
-    options: [
-      "AWS Elastic Beanstalk",
-      "Google Compute Engine",
-      "Azure App Service",
-      "Heroku"
-    ],
-    answer: "Google Compute Engine"
-  },
-  {
-    question: "In PaaS, developers mainly focus on:",
-    options: [
-      "Application code and logic",
-      "Managing servers and networks",
-      "Hardware maintenance",
-      "Virtual machine provisioning"
-    ],
-    answer: "Application code and logic"
-  }
-];
-
-
-    let currentQuestion = 0;
-    let score = 0;
-
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const nextBtn = document.getElementById("nextBtn");
-    const resultEl = document.getElementById("result");
-
-    function loadQuestion() {
-      const q = quizData[currentQuestion];
-      questionEl.textContent = q.question;
-      optionsEl.innerHTML = "";
-      q.options.forEach(option => {
-        const li = document.createElement("li");
-        li.textContent = option;
-        li.onclick = () => selectOption(option);
-        optionsEl.appendChild(li);
-      });
-    }
-
-    function selectOption(selected) {
-      const answer = quizData[currentQuestion].answer;
-      if (selected === answer) {
-        score++;
-      }
-      currentQuestion++;
-      if (currentQuestion < quizData.length) {
-        loadQuestion();
-      } else {
-        endQuiz();
-      }
-    }
-
-    function endQuiz() {
-      document.getElementById("quiz").style.display = "none";
-      resultEl.textContent = `You scored ${score} out of ${quizData.length}`;
-    }
-
-    nextBtn.onclick = () => {
-      currentQuestion++;
-      if (currentQuestion < quizData.length) {
-        loadQuestion();
-      } else {
-        endQuiz();
-      }
-    };
-
-    loadQuestion();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
