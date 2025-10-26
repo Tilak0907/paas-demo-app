@@ -3,20 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CampusBot – College Query Assistant</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>College Chatbot</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #0073bb, #00a8cc);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .chat-container {
+      width: 400px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      background: #0073bb;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    #chatBox {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+    }
+    .user-message {
+      background: #0073bb;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      align-self: flex-end;
+      max-width: 70%;
+    }
+    .bot-message {
+      background: #f1f1f1;
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+      max-width: 70%;
+    }
+    .input-area {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+    #userInput {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      outline: none;
+      font-size: 1em;
+    }
+    button {
+      background: #0073bb;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005f99;
+    }
+  </style>
 </head>
 <body>
   <div class="chat-container">
-    <div class="chat-box" id="chatBox">
-      <div class="bot-message">👋 Hello! I’m CampusBot. Ask me anything about our college!</div>
-    </div>
+    <div class="chat-header">🎓 ABC College Chatbot</div>
+    <div id="chatBox"></div>
     <div class="input-area">
-      <input type="text" id="userInput" placeholder="Type your question..." />
+      <input type="text" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
       <button onclick="sendMessage()">Send</button>
     </div>
   </div>
 
-  <script src="index.js"></script>
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const userInput = document.getElementById("userInput");
+
+    function sendMessage() {
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      appendMessage("user", message);
+      userInput.value = "";
+
+      setTimeout(() => {
+        const reply = getBotResponse(message);
+        appendMessage("bot", reply);
+      }, 500);
+    }
+
+    function appendMessage(sender, text) {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add(sender === "user" ? "user-message" : "bot-message");
+      messageDiv.textContent = text;
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+
+      if (input.includes("hello") || input.includes("hi")) {
+        return "Hello! How can I assist you today?";
+      } else if (input.includes("college name")) {
+        return "Our college is ABC College of Engineering, Chennai.";
+      } else if (input.includes("timing")) {
+        return "College timings are from 9:00 AM to 4:00 PM, Monday to Friday.";
+      } else if (input.includes("principal")) {
+        return "You can contact the Principal at principal@abccollege.edu.";
+      } else if (input.includes("courses") || input.includes("departments")) {
+        return "We offer B.E, B.Tech, MCA, and MBA programs.";
+      } else if (input.includes("placement")) {
+        return "Our placement cell partners with TCS, Infosys, and Wipro for campus drives.";
+      } else if (input.includes("library")) {
+        return "The library is open from 8:30 AM to 5:00 PM on all working days.";
+      } else if (input.includes("canteen")) {
+        return "Yes! The canteen provides vegetarian and non-vegetarian meals at affordable prices.";
+      } else if (input.includes("holiday")) {
+        return "You can check the academic calendar for holidays at abccollege.edu/academic-calendar.";
+      } else if (input.includes("thanks")) {
+        return "You're welcome! 😊";
+      } else {
+        return "I'm not sure about that. Please contact the college office for more details.";
+      }
+    }
+  </script>
 </body>
 </html>
